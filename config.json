@@ -1,0 +1,7 @@
+{
+  "mailing" :{
+    "subject" : "Current rate BTC to UAH",
+    "senderEmail" : "gses@mail.com",
+    "test" : "Test"
+  }
+}
