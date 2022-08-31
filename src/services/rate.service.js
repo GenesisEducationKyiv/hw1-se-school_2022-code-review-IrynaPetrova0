@@ -1,9 +1,10 @@
 const https = require('https');
+const config = require('../../config.json');
 
 class RateService {
 	getCurrentRate() {
 		return new Promise((resolve, reject) => {
-			https.get('https://api.binance.com/api/v3/ticker/price?symbol=BTCUAH', (response) => {
+			https.get(config.url.binance, (response) => {
 				let data = '';
 
 				response.on('data', (chunk) => {

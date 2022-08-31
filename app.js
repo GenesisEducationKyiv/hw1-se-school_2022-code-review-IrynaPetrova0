@@ -1,3 +1,4 @@
+const config = require('./config.json');
 const express = require('express');
 const routes = require('./src/routes/index');
 const bodyParser = require('body-parser');
@@ -11,6 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', routes);
 
-app.listen('8080', () => {
-	console.log('App listening on port 8080');
+app.listen(config.app.port, () => {
+	console.log('App listening on port ' + config.app.port);
 });

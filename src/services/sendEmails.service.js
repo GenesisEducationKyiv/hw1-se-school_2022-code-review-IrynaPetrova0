@@ -3,8 +3,7 @@ const RateService = require('../services/rate.service');
 const SubscribeService = require('../services/subscribe.service');
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 
-const API_KEY = 'xkeysib-0ea59f2499b9f3f6a474252d42d' + '3dce597d0a3648b25ba7510667f796e417455-nBKpEy1D5TRLgsIa';
-SibApiV3Sdk.ApiClient.instance.authentications['api-key'].apiKey = API_KEY;
+SibApiV3Sdk.ApiClient.instance.authentications['api-key'].apiKey = config.sendinBlue.api_key;
 
 class SendEmailsService {
 	async sendToSubscribers() {
