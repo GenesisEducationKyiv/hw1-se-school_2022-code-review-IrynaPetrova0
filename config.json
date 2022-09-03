@@ -1,0 +1,16 @@
+{
+  "mailing" :{
+    "subject" : "Current rate BTC to UAH",
+    "senderEmail" : "gses@mail.com",
+    "test" : "Test"
+  },
+  "sendinBlue" :{
+    "api_key" : "fakeApiKey"
+  },
+  "app" : {
+    "port" : "8080"
+  },
+  "url" : {
+    "binance" : "https://api.binance.com/api/v3/ticker/price?symbol=BTCUAH"
+  }
+}
