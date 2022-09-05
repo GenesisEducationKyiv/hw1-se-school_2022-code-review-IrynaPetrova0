@@ -1,25 +1,14 @@
-const https = require('https');
+const axios = require('axios');
 const config = require('../../config.json');
 
 class RateService {
-	getCurrentRate() {
-		return new Promise((resolve, reject) => {
-			https.get(config.url.binance, (response) => {
-				let data = '';
-
-				response.on('data', (chunk) => {
-					data += chunk;
-				});
-
-				response.on('end', () => {
-					resolve(Math.round(JSON.parse(data)['price']));
-				});
-			}
-			)
-				.on('error', (error) => {
-					reject(error);
-				});
-		});
+	async getCurrentRate() {
+		return await axios
+			.get(config.url.binance)
+			.then((response) => {
+				return Math.round(JSON.parse(response.data['price']));
+			})
+			.catch((err) => console.log(err));
 	}
 }
 
