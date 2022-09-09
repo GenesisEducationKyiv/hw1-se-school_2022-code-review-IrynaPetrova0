@@ -16,13 +16,13 @@ class SubscribeService {
 	}
 
 	async haveDuplicate(email) {
-		const result = await this.readFile();
+		const result = await this.readFile('./src/db/emails.txt');
 		return result.includes(email);
 	}
 
-	async readFile() {
+	async readFile(filePath) {
 		return fs.readFileSync(
-			'./src/db/emails.txt',
+			filePath,
 			{encoding : 'utf-8'}
 		).split(/\r?\n/).filter(element => element);
 	}
@@ -30,7 +30,7 @@ class SubscribeService {
 	async saveEmail(email) {
 		return fs.appendFileSync(
 			'./src/db/emails.txt',
-			'\n' + email,
+			email + '\n',
 			{ encoding: 'utf8' }
 		);
 	}

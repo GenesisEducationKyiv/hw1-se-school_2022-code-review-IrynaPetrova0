@@ -12,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', routes);
 
-app.listen(config.app.port, () => {
+let server = app.listen(config.app.port, () => {
 	console.log('App listening on port ' + config.app.port);
 });
+
+module.exports = server;
