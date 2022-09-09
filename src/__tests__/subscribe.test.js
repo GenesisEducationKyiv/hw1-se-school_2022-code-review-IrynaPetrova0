@@ -1,4 +1,5 @@
 const SubscribeService = require('../services/subscribe.service');
+const DatabaseService = require('../services/database.service');
 const MockFS = require('mock-fs');
 const NodeJSPath = require('path');
 
@@ -18,21 +19,21 @@ describe('tests for subscribe service part', () => {
 	});
 
 	test('data should be read from file', async () => {
-		const data = await SubscribeService.readFile(PathAndFileName);
+		const data = await DatabaseService.readFile(PathAndFileName);
 		expect(data).toContain('test@gmail.com');
 	});
 
 	test('subscription was successfully created', async () => {
-		let data = await SubscribeService.readFile(PathAndFileName);
+		let data = await DatabaseService.readFile(PathAndFileName);
 		expect(data).toContain('test@gmail.com');
 
 		await SubscribeService.subscribe('new@gmail.com');
-		data = await SubscribeService.readFile(PathAndFileName);
+		data = await DatabaseService.readFile(PathAndFileName);
 		expect(data).toContain('new@gmail.com');
 	});
 
 	test('should be thrown error that subscription already exists', async () => {
-		let data = await SubscribeService.readFile(PathAndFileName);
+		let data = await DatabaseService.readFile(PathAndFileName);
 		console.log(data);
 		expect(data).toContain('test@gmail.com');
 

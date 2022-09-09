@@ -3,7 +3,7 @@ const app = require('../../app');
 const axios =  require('axios');
 const MockAdapter =  require('axios-mock-adapter');
 const MockFS = require('mock-fs');
-const SubscribeService = require('../services/subscribe.service');
+const DatabaseService = require('../services/database.service');
 const NodeJSPath = require('path');
 
 const PathAndFileName = NodeJSPath.format( { dir: './src/db', base: 'emails.txt' });
@@ -43,7 +43,7 @@ describe('Rout testing', () => {
 	});
 
 	test('should create new subscription', async () => {
-		let data = await SubscribeService.readFile(PathAndFileName);
+		let data = await DatabaseService.readFile(PathAndFileName);
 		expect(data).not.toContain('new@gmail.com');
 
 		const resp = await request(app)
@@ -52,7 +52,7 @@ describe('Rout testing', () => {
 
 		expect(resp.status).toBe(200);
 
-		data = await SubscribeService.readFile(PathAndFileName);
+		data = await DatabaseService.readFile(PathAndFileName);
 		expect(data).toContain('new@gmail.com');
 	});
 });
