@@ -1,8 +1,9 @@
-const RateService = require('../services/rate.service');
+import express from 'express';
+import RateService from'../services/rate.service';
 
 class RateController {
 
-	async getRate(request,response){
+	async getRate(request: express.Request, response: express.Response){
 		try {
 			const rate = await RateService.getCurrentRate();
 			response.send(JSON.stringify(rate));
@@ -12,4 +13,4 @@ class RateController {
 		}
 	}
 }
-module.exports = new RateController();
+export default new RateController();

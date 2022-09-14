@@ -1,9 +1,9 @@
-const DatabaseService = require('./database.service');
+import DatabaseService from './database.service';
 
 const validEmailRegex = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
 
 class SubscribeService {
-	async subscribe(email) {
+	async subscribe(email:string) {
 		const emailToLowerCase = email.toLowerCase();
 		if (validEmailRegex.test(emailToLowerCase)) {
 			if (!await DatabaseService.hasDuplicate(emailToLowerCase)) {
@@ -17,4 +17,4 @@ class SubscribeService {
 	}
 }
 
-module.exports = new SubscribeService();
+export default new SubscribeService();
