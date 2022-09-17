@@ -1,14 +1,12 @@
-import axios from'axios';
-import config from '../../config.json';
+import {CurrencyProvider} from "./rate/providers";
 
 class RateService {
 	async getCurrentRate() {
-		return await axios
-			.get(config.url.binance)
-			.then((response:any) => {
-				return Math.round(JSON.parse(response.data['price']));
-			})
-			.catch((err:any) => console.log(err));
+		try {
+			return await CurrencyProvider.mainProviderCreator.factoryMethod().getRate();
+		} catch (e) {
+			return CurrencyProvider.mainProviderCreator.nextCreator?.factoryMethod().getRate();
+		}
 	}
 }
 

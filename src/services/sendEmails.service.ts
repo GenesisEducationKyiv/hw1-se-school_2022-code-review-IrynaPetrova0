@@ -1,14 +1,14 @@
 import config from '../../config.json';
 import RateService from './rate.service';
-import DatabaseService from './database.service';
+import DatabaseRepository from "../repositories/database.repository";
 
 const SibApiV3Sdk = require('sib-api-v3-typescript');
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-apiInstance.setApiKey(SibApiV3Sdk.ContactsApiApiKeys.apiKey, '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');
+apiInstance.setApiKey(SibApiV3Sdk.ContactsApiApiKeys.apiKey, config.sendinBlue.api_key);
 
 class SendEmailsService {
 	async sendToSubscribers() {
-		const emails = await DatabaseService.readFile();
+		const emails = await DatabaseRepository.getAllEmails();
 		RateService.getCurrentRate().then(result => {
 			if (emails) {
 				for (const email of emails) {
