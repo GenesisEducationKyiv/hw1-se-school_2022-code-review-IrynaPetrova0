@@ -4,7 +4,7 @@ import config from '../../config.json';
 
 class BinanceProvider implements CurrencyProviderInterface {
     private readonly endpoint: string = config.providers[0].URL;
-    providerName: string = 'binance';
+    providerName: string = 'Binance';
 
     async getRate() {
         return await axios
@@ -18,7 +18,7 @@ class BinanceProvider implements CurrencyProviderInterface {
 
 class CoinbaseProvider implements CurrencyProviderInterface {
     private readonly endpoint: string = config.providers[1].URL;
-    providerName: string = 'coinbase';
+    providerName: string = 'Coinbase';
 
     async getRate() {
         return await axios
@@ -32,7 +32,7 @@ class CoinbaseProvider implements CurrencyProviderInterface {
 
 class CoingeckoProvider implements CurrencyProviderInterface {
     private readonly endpoint: string = config.providers[2].URL;
-    providerName: string = 'coingecko';
+    providerName: string = 'Coingecko';
 
     async getRate() {
         return await axios
