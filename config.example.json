@@ -1,0 +1,30 @@
+{
+  "mailing" :{
+    "subject" : "Current rate BTC to UAH",
+    "senderEmail" : "***@gmail.com",
+    "test" : "Test"
+  },
+  "sendinBlue" :{
+    "api_key" : "Your_API_Key"
+  },
+  "app" : {
+    "port" : "8080"
+  },
+  "providers" : [
+    {
+      "ID": "0",
+      "Name": "binance",
+      "URL": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUAH"
+    },
+    {
+      "ID": "1",
+      "Name": "coinbase",
+      "URL": "https://api.coinbase.com/v2/prices/BTC-UAH/buy"
+    },
+    {
+      "ID": "0",
+      "Name": "coingecko",
+      "URL": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=uah"
+    }
+  ]
+}
