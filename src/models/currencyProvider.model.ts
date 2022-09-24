@@ -1,10 +1,12 @@
 import { CurrencyProviderInterface } from "../interfaces/currencyProvider.interface";
 import axios from "axios";
-import config from '../../config.json';
+import Config from "../../config";
+import {CurrencyProvider} from "../services/rate/providers";
 
 class BinanceProvider implements CurrencyProviderInterface {
-    private readonly endpoint: string = config.providers[0].URL;
     providerName: string = 'Binance';
+    // @ts-ignore
+    private readonly endpoint: string = Config.PROVIDERS.get(this.providerName);
 
     async getRate() {
         return await axios
@@ -17,8 +19,9 @@ class BinanceProvider implements CurrencyProviderInterface {
 }
 
 class CoinbaseProvider implements CurrencyProviderInterface {
-    private readonly endpoint: string = config.providers[1].URL;
     providerName: string = 'Coinbase';
+    // @ts-ignore
+    private readonly endpoint: string = Config.PROVIDERS.get(this.providerName);
 
     async getRate() {
         return await axios
@@ -31,8 +34,9 @@ class CoinbaseProvider implements CurrencyProviderInterface {
 }
 
 class CoingeckoProvider implements CurrencyProviderInterface {
-    private readonly endpoint: string = config.providers[2].URL;
     providerName: string = 'Coingecko';
+    // @ts-ignore
+    private readonly endpoint: string = Config.PROVIDERS.get(this.providerName);
 
     async getRate() {
         return await axios
