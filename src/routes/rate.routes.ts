@@ -1,10 +1,10 @@
 import express from 'express';
-import RateController from '../controllers/rate.controller';
+import {rateController} from "../init/init";
 
 const router = express.Router();
 
 router
 	.route('/')
-	.get(RateController.getRate);
+	.get(rateController.getRate);
 
 export default router;

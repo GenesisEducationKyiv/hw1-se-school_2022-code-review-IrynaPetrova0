@@ -1,10 +1,10 @@
 import express from 'express';
-import SendEmailsController from'../controllers/sendEmails.controller';
+import {sendEmailsController} from "../init/init";
 
 const router = express.Router();
 
 router
 	.route('/')
-	.post(SendEmailsController.send);
+	.post(sendEmailsController.send);
 
 export default router;
