@@ -1,10 +1,10 @@
-import config from '../../config.json';
+import Config from "../../config";
 import RateService from './rate.service';
 import DatabaseRepository from "../repositories/database.repository";
 
 const SibApiV3Sdk = require('sib-api-v3-typescript');
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-apiInstance.setApiKey(SibApiV3Sdk.ContactsApiApiKeys.apiKey, config.sendinBlue.api_key);
+apiInstance.setApiKey(SibApiV3Sdk.ContactsApiApiKeys.apiKey, Config.API_KEY);
 
 class SendEmailsService {
 	async sendToSubscribers() {
@@ -24,9 +24,9 @@ class SendEmailsService {
 
 	sendToSelectedEmail(email:string, rate:any) {
 		let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
-		sendSmtpEmail.subject = config.mailing.subject;
+		sendSmtpEmail.subject = Config.SUBJECT;
 		sendSmtpEmail.textContent = "1 BTC = " + rate + " UAH.";
-		sendSmtpEmail.sender = {"name":"John Doe","email":config.mailing.senderEmail};
+		sendSmtpEmail.sender = {"name":"John Doe","email":Config.SENDER_EMAIL};
 		sendSmtpEmail.to = [{"email": email}];
 
 		apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data:any) {

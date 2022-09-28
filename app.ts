@@ -1,4 +1,4 @@
-import config from './config.json';
+import Config from "./config";
 import express from 'express';
 import routes from './src/routes';
 import bodyParser from 'body-parser';
@@ -14,8 +14,8 @@ app.use(multer().array(''));
 
 app.use('/api', routes);
 
-let server = app.listen(config.app.port, () => {
-	console.log('App listening on port ' + config.app.port);
+let server = app.listen(Config.PORT, () => {
+	console.log('App listening on port ' + Config.PORT);
 });
 
 export default server;
