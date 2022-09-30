@@ -26,11 +26,23 @@ export const initProviders = () => {
     list.push(coinbase);
     list.push(coingecko);
 
-    const mainProvider : CurrencyProviderInterface = list[Number(process.env.CRYPTO_CURRENCY_PROVIDER)] || list[0];
+    const mainProviderId = Number(process.env.CRYPTO_CURRENCY_PROVIDER)
 
-    if (list.length > 1) {
-        for (let i = 1; i < list.length; i++) {
+    const mainProvider : CurrencyProviderInterface = list[mainProviderId] || list[0];
+
+    if (list.length > 0) {
+        for (let i = mainProviderId + 1; i < list.length; i++) {
             list[i - 1].setNext(list[i]);
+        }
+
+        if (mainProviderId !=0) {
+            list[list.length - 1].setNext(list[0])
+        }
+
+        if (mainProviderId > 1) {
+            for (let i = 0; i < mainProviderId - 1; i++) {
+                list[i].setNext(list[i]);
+            }
         }
     }
 
