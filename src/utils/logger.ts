@@ -10,9 +10,13 @@ class Logger implements RateServiceInterface {
     }
 
     async getCurrentRate() {
-        const result = await this.service.getCurrentRate();
-        this.log(result);
-        return result;
+        try {
+            const result = await this.service.getCurrentRate();
+            this.log(result);
+            return result;
+        } catch (e) {
+            throw e;
+        }
     }
 
     log(rate: any) {

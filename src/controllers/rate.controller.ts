@@ -9,8 +9,16 @@ class RateController {
     }
 
     getRate = async (request: express.Request, response: express.Response) => {
-        const rate = await this.rateService.getCurrentRate();
-        response.send(JSON.stringify(rate));
+
+        try {
+            const rate = await this.rateService.getCurrentRate();
+            response.send(JSON.stringify(rate));
+            response.status(200);
+        } catch (e) {
+            response.status(400);
+            response.send('Invalid status value');
+        }
+
     }
 }
 
