@@ -1,10 +1,17 @@
 import express from 'express';
-import SendEmailsService from '../services/sendEmails.service';
+import {SendEmailsServiceInterface} from "../interfaces/sendEmailsService.interface";
 
 class SendEmailsController {
-	async send(request: express.Request, response: express.Response) {
+
+	sendEmailsService: SendEmailsServiceInterface;
+
+	constructor(sendEmailsService: SendEmailsServiceInterface) {
+		this.sendEmailsService = sendEmailsService;
+	}
+
+	send = async (request: express.Request, response: express.Response) => {
 		try {
-			await SendEmailsService.sendToSubscribers();
+			await this.sendEmailsService.sendToSubscribers();
 			response.status(200).send('Email sent');
 		} catch (e:any) {
 			response.status(400).send(e);
@@ -12,4 +19,4 @@ class SendEmailsController {
 	}
 }
 
-export default new SendEmailsController();
+export {SendEmailsController};

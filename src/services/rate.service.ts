@@ -1,38 +1,17 @@
-import {CurrencyProvider} from "./rate/providers";
-import cache_local from "../utils/cache_local";
 import {CurrencyProviderInterface} from "../interfaces/currencyProvider.interface";
+import {RateServiceInterface} from "../interfaces/rateService.interface";
 
-class RateService {
-	async getCurrentRate() {
-		const currencyProviderCreator = CurrencyProvider.mainProviderCreator;
-		try {
-			if (process.env.CACHING_ENABLED === "true"){
-				return await this.getCurrentRateWithCache(currencyProviderCreator.factoryMethod());
-			}else {
-				return await currencyProviderCreator.factoryMethod().getRate();
-			}
-		} catch (e) {
-			if (currencyProviderCreator.nextCreator && process.env.CACHING_ENABLED === "true"){
-				return await this.getCurrentRateWithCache(currencyProviderCreator.nextCreator.factoryMethod());
-			} else {
-				return await currencyProviderCreator.nextCreator?.factoryMethod().getRate();
-			}
-		}
+class RateService implements RateServiceInterface{
+
+	provider : CurrencyProviderInterface;
+
+	constructor(provider: CurrencyProviderInterface) {
+		this.provider = provider;
 	}
 
-	async getCurrentRateWithCache(currencyProvider: CurrencyProviderInterface) {
-		let rate: number | null | undefined | void = null;
-
-		if (process.env.CACHING_ENABLED === "true") {
-			rate = cache_local.get<number>(currencyProvider.providerName);
-		}
-
-		if (!rate) {
-			rate = await currencyProvider.getRate();
-			cache_local.set(currencyProvider.providerName, rate);
-		}
-		return rate;
+	async getCurrentRate() {
+		return this.provider.getRate();
 	}
 }
 
-export default new RateService();
+export {RateService}

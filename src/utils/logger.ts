@@ -1,24 +1,27 @@
-import {CurrencyProviderInterface} from "../interfaces/currencyProvider.interface";
+import {RateServiceInterface} from "../interfaces/rateService.interface";
 
 
-class Logger implements CurrencyProviderInterface {
-    providerName: string = "Logger";
-    provider: CurrencyProviderInterface;
+class Logger implements RateServiceInterface {
 
-    constructor(provider: CurrencyProviderInterface) {
-        this.provider = provider;
+    service: RateServiceInterface;
+
+    constructor(service: RateServiceInterface) {
+        this.service = service;
     }
 
-    async getRate(): Promise<number | void> {
-        const currentRate = await this.provider.getRate();
-        this.log(currentRate);
-        return Promise.resolve(currentRate);
+    async getCurrentRate() {
+        try {
+            const result = await this.service.getCurrentRate();
+            this.log(result);
+            return result;
+        } catch (e) {
+            throw e;
+        }
     }
 
     log(rate: any) {
-        console.log('\x1b[35m%s\x1b[0m', `${this.provider.providerName}: 1 Bitcoin = ${rate} UAH`);
+        console.log('\x1b[35m%s\x1b[0m', '[LOG]' , `1 Bitcoin = ${rate} UAH`);
     }
-
 }
 
 export {Logger}

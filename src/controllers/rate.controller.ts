@@ -1,16 +1,25 @@
 import express from 'express';
-import RateService from '../services/rate.service';
+import {RateServiceInterface} from "../interfaces/rateService.interface";
 
 class RateController {
+    rateService: RateServiceInterface;
 
-	async getRate(request: express.Request, response: express.Response){
-		try {
-			const rate = await RateService.getCurrentRate();
-			response.send(JSON.stringify(rate));
-		} catch (e) {
-			response.status(400);
-			response.send('Invalid status value');
-		}
-	}
+    constructor(rateService: RateServiceInterface) {
+        this.rateService = rateService;
+    }
+
+    getRate = async (request: express.Request, response: express.Response) => {
+
+        try {
+            const rate = await this.rateService.getCurrentRate();
+            response.send(JSON.stringify(rate));
+            response.status(200);
+        } catch (e) {
+            response.status(400);
+            response.send('Invalid status value');
+        }
+
+    }
 }
-export default new RateController();
+
+export {RateController}

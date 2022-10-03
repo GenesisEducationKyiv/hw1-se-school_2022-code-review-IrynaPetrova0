@@ -1,50 +1,33 @@
-import { CurrencyProviderInterface } from "../interfaces/currencyProvider.interface";
-import axios from "axios";
 import Config from "../../config";
-import {CurrencyProvider} from "../services/rate/providers";
+import {CurrencyProviderAbstract} from "../providers/currencyProvider.abstract";
 
-class BinanceProvider implements CurrencyProviderInterface {
+class BinanceProvider extends CurrencyProviderAbstract {
     providerName: string = 'Binance';
     // @ts-ignore
-    private readonly endpoint: string = Config.PROVIDERS.get(this.providerName);
+    readonly endpoint: string = Config.PROVIDERS.get(this.providerName);
 
-    async getRate() {
-        return await axios
-            .get(this.endpoint)
-            .then((response:any) => {
-                return Math.round(JSON.parse(response.data['price']));
-            })
-            .catch((err:any) => console.log(err));
+    public parseRate(response :any){
+        return Math.round(JSON.parse(response.data['price']));
     }
 }
 
-class CoinbaseProvider implements CurrencyProviderInterface {
+class CoinbaseProvider extends CurrencyProviderAbstract {
     providerName: string = 'Coinbase';
     // @ts-ignore
-    private readonly endpoint: string = Config.PROVIDERS.get(this.providerName);
+    readonly endpoint: string = Config.PROVIDERS.get(this.providerName);
 
-    async getRate() {
-        return await axios
-            .get(this.endpoint)
-            .then((response:any) => {
-                return Math.round(Number(response.data.data.amount));
-            })
-            .catch((err:any) => console.log(err));
+    public parseRate(response :any){
+        return Math.round(Number(response.data.data.amount));
     }
 }
 
-class CoingeckoProvider implements CurrencyProviderInterface {
+class CoingeckoProvider extends CurrencyProviderAbstract {
     providerName: string = 'Coingecko';
     // @ts-ignore
-    private readonly endpoint: string = Config.PROVIDERS.get(this.providerName);
+    readonly endpoint: string = Config.PROVIDERS.get(this.providerName);
 
-    async getRate() {
-        return await axios
-            .get(this.endpoint)
-            .then((response:any) => {
-                return response.data["bitcoin"]["uah"];
-            })
-            .catch((err:any) => console.log(err));
+    public parseRate(response :any){
+        return response.data["bitcoin"]["uah"];
     }
 }
 
